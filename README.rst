@@ -29,7 +29,7 @@ Installation
         pip install -e git+https://github.com/k1000/django-tracker.git#egg=tracker
 
 
-Todo
+TODO
 ----
 
     * email notification templates
