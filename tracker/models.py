@@ -5,37 +5,12 @@ from django.contrib.auth.models import User
 
 from notify import notify_staff
 
-from django.conf import settings
+from tracker.settings import *
 # Create your models here.
-
-STATUS_CODES = (
-    (1, 'Abierto'),
-    (2, 'En proceso'),
-    (3, 'Cerrado'),
-    (4, 'Ignorado'),
-    )
-
-KIND_CODES = (
-    (1, 'Error'),
-    (2, u'Correción linguistica'),
-    (3, 'Mejora'),
-    )
-        
-PRIORITY_CODES = (
-    (1, 'Urgente'),
-    (2, 'Pronto'),
-    (3, u'Algun día'),
-    )
-    
-EXCLUDE_APPS = []
-EXCLUDE_APPS += [ app for app in settings.INSTALLED_APPS if "django." in app ]
-apps = [ app for app in settings.INSTALLED_APPS if app not in EXCLUDE_APPS ]
-PROJECTS = list(enumerate(apps))
 
 class Ticket(models.Model):
     """Trouble tickets"""
     title = models.CharField(_("titulo"), max_length=250)
-    project = models.PositiveIntegerField(_(u"módulo afectado"), blank=True, null=True, max_length=100, choices=PROJECTS)
     url = models.URLField(_("url"), blank=True, null=True, verify_exists=False)
     submitted_date = models.DateTimeField(_("creado"), auto_now_add=True)
     modified_date = models.DateTimeField(_("modificado"), auto_now=True)
@@ -47,7 +22,10 @@ class Ticket(models.Model):
     kind = models.PositiveIntegerField(_("tipo"), default=1, choices=KIND_CODES)
     commit_id = models.CharField(_(u'revisión nº'), blank=True, null=True, max_length=100)
     image = models.ImageField(_("imagen"), blank=True, null=True, upload_to="uploads/tracker", )
-
+    
+    if PROJECT_INTEGRATION:
+        project = models.PositiveIntegerField(_(u"módulo afectado"), blank=True, null=True, max_length=100, choices=PROJECTS)
+        
     def __unicode__(self):
         return self.title
         
