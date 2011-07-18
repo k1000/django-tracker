@@ -24,7 +24,7 @@ Installation
         cd django-tracker
         python setup.py install
 
-    or using pip::     
+   or using pip::     
     
         pip install -e git+https://github.com/k1000/django-tracker.git#egg=tracker
 
