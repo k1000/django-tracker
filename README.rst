@@ -34,7 +34,11 @@ TODO
 ----
 
     * email notification templates
+    * optional comments
     * maybe notifing fired by signals instead save method overload ?
+    * RSS feed for open tickets
+    * closing tickets from GIT commit message (using post commit hook)
+    * optional management flow
 
 
 LICENSE
