@@ -6,6 +6,7 @@ About
 Features:
     * bug/feature submission and tracking
     * task assignment
+    * integration with django.users
     * email notification when bug/feature changes
     * convinient configuration via settings
 
