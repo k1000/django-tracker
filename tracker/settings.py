@@ -2,10 +2,13 @@
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
+
+EMAIL_NOTIFIY = getattr(settings, "TRACKER_EMAIL_NOTIFIY", True )
+
 # tracer initialization settings !!!dont'change after instalation
 PROJECT_INTEGRATION = getattr(settings, "TRACKER_PROJECT_INTEGRATION", True )
 EXCLUDE_APPS = getattr(settings, "TRACKER_EXCLUDE_APPS", [] )
-MULTISITES = getattr(settings, "TRACKER_MULTISITES", False )
+MULTISITE = getattr(settings, "TRACKER_MULTISITES", False )
 ACTIVETE_COMMENTS = getattr(settings, "TRACKER_ACTIVETE_COMMENTS", False )
 
 STATUS_CODES = getattr(settings, 
