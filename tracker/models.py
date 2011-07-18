@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from notify import notify_staff
 
 from tracker.settings import *
-# Create your models here.
 
 class Ticket(models.Model):
     """Trouble tickets"""
