@@ -1,7 +1,7 @@
 About
 -----
 
-Django tracker. Simple bug tracker loosely coupled with your django project.
+*django-tracker* - simple bug tracker loosely coupled with your django project.
 
 Features:
     * bug/feature submission and tracking
