@@ -26,13 +26,18 @@ class Ticket(models.Model):
     if PROJECT_INTEGRATION:
         project = models.PositiveIntegerField(_(u"módulo afectado"), blank=True, null=True, max_length=100, choices=PROJECTS)
         
+    if MULTISITE:
+        from django.contrib.sites.models import Site
+        sites = models.ForeignKey(Site, verbose_name=_("Webs"), related_name="related_sites", )
+        
     def __unicode__(self):
         return self.title
         
     def save(self, *args, **kwargs):
         super(Ticket, self).save(*args, **kwargs)
-        if self.assigned_to:
-            notify_staff( self )
+        if EMAIL_NOTIFIY:
+            if self.assigned_to:
+                notify_staff( self )
 
 class Comment(models.Model):
     ticket = models.ForeignKey(Ticket, related_name="related_ticet")
