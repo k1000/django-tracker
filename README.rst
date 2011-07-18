@@ -28,7 +28,7 @@ Installation
     
         pip install -e git+https://github.com/k1000/django-tracker.git#egg=tracker
 
-2. Add "tracker" to your APPS settings.
+2. Add "tracker" to your APPS in "settings.py"
 
 TODO
 ----
