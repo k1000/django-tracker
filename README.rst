@@ -2,6 +2,7 @@ About
 -----
 
 Django tracker. Simple tracker integrated with your django project.
+Known to work in Django 1.3
 
 Installation
 ------------
