@@ -5,12 +5,12 @@ About
 
 Features:
     * bug/feature submission and tracking
-    * task asigement
+    * task assignment
     * email notification when bug/feature changes
     * convinient configuration via settings
 
 Optional Features (activated via settings):
-    * coupling to project aps
+    * coupling to project apps
     * multisite support
 
 Known to work in Django 1.3
@@ -28,6 +28,7 @@ Installation
     
         pip install -e git+https://github.com/k1000/django-tracker.git#egg=tracker
 
+2. Add "tracker" to your APPS settings.
 
 TODO
 ----
