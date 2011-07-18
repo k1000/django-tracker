@@ -4,14 +4,14 @@ About
 Django tracker. Simple bug tracker loosely coupled with your django project.
 
 Features:
-* bug/feature submission and tracking
-* task asigement
-* email notification when bug/feature changes
-* convinient configuration via settings
+    * bug/feature submission and tracking
+    * task asigement
+    * email notification when bug/feature changes
+    * convinient configuration via settings
 
 Optional Features (activated via settings):
-* coupling to project aps
-* multisite support
+    * coupling to project aps
+    * multisite support
 
 Known to work in Django 1.3
 
@@ -32,8 +32,8 @@ Installation
 Todo
 ----
 
-* email notification templates
-* maybe notifing fired by signals instead save method overload ?
+    * email notification templates
+    * maybe notifing fired by signals instead save method overload ?
 
 
 LICENSE
