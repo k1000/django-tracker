@@ -1,58 +1,50 @@
+Configuration
+_____________
+
 *django-tracker* - simple bug tracker loosely coupled with your django project.
 Allows convinient configuration options via settings
 
-TRACKER_EMAIL_NOTIFIY::
----------------------
+TRACKER_EMAIL_NOTIFIY
     type: Boolean
     default: True
 
-TRACKER_PROJECT_INTEGRATION::
----------------------------
+TRACKER_PROJECT_INTEGRATION
     type: Boolean
     default: True
 
-TRACKER_EXCLUDE_APPS::
---------------------
+TRACKER_EXCLUDE_APPS
     type: List
     default: []
 
-TRACKER_MULTISITE::
------------------
+TRACKER_MULTISITE
     type: Boolean
     default: False
 
-TRACKER_ACTIVETE_COMMENTS::
--------------------------
+TRACKER_ACTIVETE_COMMENTS
     type: Boolean
     default: False
 
-TRACKER_ASIGNED_USER::
---------------------
+TRACKER_ASIGNED_USER
     type: Class
     default: User
 
-TRACKER_LIMIT_ASIGNED_USERS::
----------------------------
+TRACKER_LIMIT_ASIGNED_USERS
     type: Dict
     default: {'is_staff__exact': True}
 
-TRACKER_SUMITTER_USER::
----------------------
+TRACKER_SUMITTER_USER
     type: Class
     default: User
 
-TRACKER_LIMIT_SUBMITTER_USERS::
------------------------------
+TRACKER_LIMIT_SUBMITTER_USERS
     type: Dict
     default: {}
 
-TRACKER_IMAGE_UPLOAD_DIR::
-------------------------
+TRACKER_IMAGE_UPLOAD_DIR
     type: Dict
     default: "uploads/tracker"
 
-TRACKER_STATUS_CODES::
---------------------
+TRACKER_STATUS_CODES
     type: Tuple
     default: (
         (1, _('Abierto')),
@@ -61,8 +53,7 @@ TRACKER_STATUS_CODES::
         (4, _('Ignorado')),
     )
 
-TRACKER_KIND_CODES::
-------------------
+TRACKER_KIND_CODES
     type: Tuple
     default: (
         (1, _('Error')),
@@ -70,8 +61,7 @@ TRACKER_KIND_CODES::
         (3, _('Mejora')),
     )
 
-TRACKER_PRIORITY_CODES::
-----------------------
+TRACKER_PRIORITY_CODES
     type: Tuple
     default: (
         (1, _('Urgente')),
@@ -79,7 +69,6 @@ TRACKER_PRIORITY_CODES::
         (3, _(u'Algun día')),
     )
 
-TRACKER_DEFAULT_PRIORITY::
-------------------------
+TRACKER_DEFAULT_PRIORITY
     type: Int
     default: 2
