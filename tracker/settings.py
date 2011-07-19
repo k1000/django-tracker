@@ -11,6 +11,15 @@ EXCLUDE_APPS = getattr(settings, "TRACKER_EXCLUDE_APPS", [] )
 MULTISITE = getattr(settings, "TRACKER_MULTISITES", False )
 ACTIVETE_COMMENTS = getattr(settings, "TRACKER_ACTIVETE_COMMENTS", False )
 
+
+ASIGNED_USER = = getattr(settings, "TRACKER_ASIGNED_USER", "User" )
+LIMIT_ASIGNED_USERS = getattr(settings, "TRACKER_LIMIT_ASIGNED_STAFF", {'is_staff__exact': True}  )
+
+SUMITTER_USER = getattr(settings, "TRACKER_SUMITTER_USER", "User" )
+LIMIT_SUMITTER_USERS = getattr(settings, "TRACKER_LIMIT_ASIGNED_STAFF", {}  )
+
+IMAGE_UPLOAD_DIR = getattr(settings, "TRACKER_IMAGE_UPLOAD_DIR", "uploads/tracker" )
+
 STATUS_CODES = getattr(settings, 
     "TRACKER_STATUS_CODES", 
     (
