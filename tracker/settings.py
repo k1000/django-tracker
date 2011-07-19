@@ -40,7 +40,7 @@ KIND_CODES = getattr(settings,
 )
 
 PRIORITY_CODES = getattr(settings, 
-    "TRACKER_KIND_CODES", 
+    "TRACKER_PRIORITY_CODES", 
     (
         (1, _('Urgente')),
         (2, _('Pronto')),
