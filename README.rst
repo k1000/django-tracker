@@ -32,8 +32,8 @@ Installation
 2. Add "tracker" to your INSTALLED_APPS in "settings.py" 
 3. Run "./manage.py syncdb" to create db tables
 
-Installation
-------------
+Settings
+--------
 
 See SETTINGS_ for more info.
 
@@ -56,4 +56,4 @@ Django-tracker is released under the MIT License. See the LICENSE_ file for more
 details.
 
 .. _LICENSE: http://github.com/k1000/django-backfire/blob/master/LICENSE
-.. _SETTINGS: http://github.com/k1000/django-backfire/blob/master/SETTINGS
+.. _SETTINGS: http://github.com/k1000/django-backfire/blob/master/SETTINGS.rst
