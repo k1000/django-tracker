@@ -1,5 +1,6 @@
-About
------
+--------------
+django-tracker
+--------------
 
 *django-tracker* - simple bug tracker loosely coupled with your django project.
 
@@ -32,8 +33,8 @@ Installation
 2. Add "tracker" to your INSTALLED_APPS in "settings.py" 
 3. Run "./manage.py syncdb" to create db tables
 
-Settings
---------
+Configuration
+-------------
 
 See SETTINGS_ for more info.
 
