@@ -56,4 +56,4 @@ Django-tracker is released under the MIT License. See the LICENSE_ file for more
 details.
 
 .. _LICENSE: http://github.com/k1000/django-backfire/blob/master/LICENSE
-.. _SETTINGS: http://github.com/k1000/django-backfire/blob/master/SETTINGS.rst
+.. _SETTINGS: https://github.com/k1000/django-tracker/blob/master/SETTINGS.rst
