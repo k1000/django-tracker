@@ -20,6 +20,9 @@ LIMIT_SUBMITTER_USERS = getattr(settings, "TRACKER_LIMIT_SUBMITTER_USERS", {}  )
 
 IMAGE_UPLOAD_DIR = getattr(settings, "TRACKER_IMAGE_UPLOAD_DIR", "uploads/tracker" )
 
+NOTIFY_MANAGERS = getattr(settings, "TRACKER_NOTIFY_MANAGERS", []  )
+NOTIFY_FROM_EMAIL = getattr(settings, "TRACKER_NOTIFY_FROM_EMAIL", settings.DEFAULT_FROM_EMAIL )
+
 STATUS_CODES = getattr(settings, 
     "TRACKER_STATUS_CODES", 
     (

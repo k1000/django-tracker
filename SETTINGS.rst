@@ -44,6 +44,15 @@ TRACKER_IMAGE_UPLOAD_DIR
     type: Dict
     default: "uploads/tracker"
 
+NOTIFY_MANAGERS
+    type: List
+    default: []
+    list of emails
+
+TRACKER_NOTIFY_FROM_EMAIL
+    type: String
+    default: settings.DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+    
 TRACKER_STATUS_CODES
     type: Tuple
     default: (

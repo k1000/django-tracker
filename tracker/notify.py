@@ -1,35 +1,36 @@
-from django.conf import settings
+# -*- coding: utf-8 -*-
 from django.core.mail import send_mail
-from django.core.urlresolvers import reverse# Create your views here.
+from django.core.urlresolvers import reverse
+from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
 
-CURRENT_SITE = Site.objects.get_current()
+from tracker.settings import NOTIFY_MANAGERS, NOTIFY_FROM_EMAIL
 
 def notify_staff( obj ):
-    body = """
-ticket %s: %s %s
-estado:%s
-creado: %s
-priridad: %s
-url: %s
--------------------------
-%s
--------------------------
-este mensage ha side generado automaticamente
-    """ % (
-    obj.id,
-    obj.title,
-    "%s/%s" % ( CURRENT_SITE, reverse( 'admin:tracker_ticket_change', args=(obj.id,) ) ),
-    obj.status,
-    obj.submitted_date,
-    obj.priority,
-    obj.url,
-    obj.description,
-    )
+    
+    data = {
+        "site": obj.sites or Site.objects.get_current(),
+        "admin_url": reverse( 'admin:tracker_ticket_change', args=(obj.id,) ),
+        'object': obj,
+    }
+    
+    subject = 'ticket %s: "%s" en %s' % (obj.id, obj.title, data.site)
+    message = render_to_string("tracker/email/notify_staff.txt", dictionary=data )
+    
+    #notify asigned staff member                  
     send_mail(
-        'ticket %s: "%s"' % (obj.id, obj.title), 
-        obj.description, 
-        obj.submitter.email,
-        [obj.assigned_to.email ], 
+        subject, 
+        message, 
+        NOTIFY_FROM_EMAIL,
+        NOTIFY_MANAGERS + [obj.assigned_to.email], 
+        fail_silently=False
+    )
+    
+    #notify submitter                 
+    send_mail(
+        subject, 
+        message, 
+        NOTIFY_FROM_EMAIL,
+        [obj.submitter.email], 
         fail_silently=False
     )

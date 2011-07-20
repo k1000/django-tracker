@@ -28,7 +28,7 @@ class Ticket(models.Model):
     priority = models.PositiveIntegerField(_("prioridad"), 
             default=DEFAULT_PRIORITY, 
             choices=PRIORITY_CODES)
-    browser_profile = models.TextField(_("perfil del navegador"), blank=True, null=True )
+    #browser_profile = models.TextField(_("perfil del navegador"), blank=True, null=True )
     kind = models.PositiveIntegerField(_("tipo"), 
             default=1, 
             choices=KIND_CODES)
