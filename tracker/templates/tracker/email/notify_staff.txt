@@ -1,10 +1,11 @@
-ticket nº {{ object.id }}
-{{ object.title }} en {% if object.sites %} {{ object.sites }} {% else %} {{ site }} {% endif %}
-{{ admin_url }}
+ticket nº {{ object.id }} creado en {{ object.submitted_date }}
+
+"{{ object.title }}" en {{ site }} 
+{{ site }}{{ admin_url }}
 ========================
 
-estado: {{ object.get_status_display }}	creado en: {{ object.submitted_date }}
-prioridad: {{ object.get_priority_display }}
+estado: 	{{ object.get_status_display }}	
+prioridad: 	{{ object.get_priority_display }}
 
 {% if object.url %} url: {{ object.url }} {% endif %}
 {% if object.project %} modulo afectado {{ object.get_project_display }} {% endif %}
