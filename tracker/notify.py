@@ -7,9 +7,12 @@ from django.contrib.sites.models import Site
 from tracker.settings import NOTIFY_MANAGERS, NOTIFY_FROM_EMAIL
 
 def notify_staff( obj ):
-    
+    import ipdb; ipdb.set_trace()
+    site = getattr(obj, "sites", None)
+    if not site:
+        site = Site.objects.get_current().name
     data = {
-        "site": obj.sites or Site.objects.get_current(),
+        "site": site,
         "admin_url": reverse( 'admin:tracker_ticket_change', args=(obj.id,) ),
         'object': obj,
     }
