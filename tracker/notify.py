@@ -29,11 +29,12 @@ def notify_staff( obj ):
         fail_silently=False
     )
     
-    #notify submitter                 
-    send_mail(
-        subject, 
-        message, 
-        NOTIFY_FROM_EMAIL,
-        [obj.submitter.email], 
-        fail_silently=False
-    )
+    if obj.assigned_to_id is not obj.submitter_id:
+        #notify submitter                 
+        send_mail(
+            subject, 
+            message, 
+            NOTIFY_FROM_EMAIL,
+            [obj.submitter.email], 
+            fail_silently=False
+        )
