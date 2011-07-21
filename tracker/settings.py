@@ -33,6 +33,16 @@ STATUS_CODES = getattr(settings,
     ) 
 )
 
+STATUS_COLOR_CODES = getattr(settings, 
+    "TRACKER_STATUS_COLOR_CODES", 
+    (
+        (1, '#ffbb56'), #orange
+        (2, 'yellow'),
+        (3, '#7fff00'), #lighht green
+        (4, '#eaeaea'), #lighht gray
+    ) 
+)
+
 KIND_CODES = getattr(settings, 
     "TRACKER_KIND_CODES", 
     (

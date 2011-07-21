@@ -48,7 +48,7 @@ class Ticket(models.Model):
         sites = models.ForeignKey(Site, verbose_name=_("Webs"), related_name="related_sites", )
         
     def __unicode__(self):
-        return self.title
+        return "#%s %s" % ( self.id, self.title )
         
     def save(self, *args, **kwargs):
         super(Ticket, self).save(*args, **kwargs)
