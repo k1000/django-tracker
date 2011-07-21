@@ -37,7 +37,7 @@ KIND_CODES = getattr(settings,
     "TRACKER_KIND_CODES", 
     (
         (1, _('Error')),
-        (2, _(u'Correción linguistica')),
+        (2, _(u'Corrección lingüística')),
         (3, _('Mejora')),
     ) 
 )
