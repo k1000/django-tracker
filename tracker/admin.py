@@ -15,6 +15,7 @@ class TicketAdmin(admin.ModelAdmin):
                             ("project", "url"),
                             "description",
 							("assigned_to","priority"),
+							"commit_id", 
 							'image',
                           )
         }),
@@ -22,14 +23,15 @@ class TicketAdmin(admin.ModelAdmin):
     
     def status_color(self, obj):
         return '<span style="color: #%s;">%s</span>' % ("red", obj.status)
+        
     status_color.short_description = 'status'
     status_color.allow_tags = True
     
     ordering = ('-submitted_date',)
     date_hierarchy = 'submitted_date'
-    list_display = ( 'title', "submitted_date", "priority", 'status',  'kind',  'project',"submitter", 'assigned_to', )
+    list_display = ( 'title', "id", 'status', "submitted_date", "priority",  'kind',  'project',"submitter", 'assigned_to', )
     
-    search_fields = ('title', 'project', 'description', "commit_id" )
+    search_fields = ('title', 'id', 'project', 'description', "commit_id" )
 
     list_filter = ( "priority", 'status',  'kind',  'project', 'assigned_to', )
 
