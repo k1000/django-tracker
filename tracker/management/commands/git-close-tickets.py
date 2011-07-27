@@ -11,7 +11,7 @@ logger = logging.getLogger("django")
 #based on http://progit.org/book/ch7-4.html
 
 class Command(BaseCommand):
-    args = '<oldrev newrev>'
+    args = '<rev oldrev newrev>'
     help = '''busca ticket refs en git commits y lo cierra'''
     
     def handle(self, *args, **options):

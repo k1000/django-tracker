@@ -12,15 +12,19 @@ class Ticket(models.Model):
     url = models.URLField(_("URL"), blank=True, null=True, verify_exists=False)
     submitted_date = models.DateTimeField(_("creado"), auto_now_add=True)
     modified_date = models.DateTimeField(_("modificado"), auto_now=True)
+    
     submitter = models.ForeignKey(SUBMITTER_USER_CLS, 
             related_name="submitter", 
             verbose_name=_("creado por"),
             limit_choices_to = LIMIT_SUBMITTER_USERS,
     )
+    notify_submitter = models.BooleanField(_("notificar el creador"), default=True)
+    
     assigned_to = models.ForeignKey(ASIGNED_USER_CLS, 
             verbose_name=_("asignado"), 
             limit_choices_to = LIMIT_ASIGNED_USERS,
     )
+    
     description = models.TextField(_(u"descripción"), blank=True, null=True)
     status = models.PositiveIntegerField(_("status"), 
             default=1, 
@@ -36,6 +40,7 @@ class Ticket(models.Model):
     image = models.ImageField(_("imagen"), 
             blank=True, null=True, 
             upload_to=IMAGE_UPLOAD_DIR, )
+    
     
     if PROJECT_INTEGRATION:
         project = models.PositiveIntegerField(_(u"módulo afectado"), 
