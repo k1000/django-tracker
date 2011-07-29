@@ -60,3 +60,27 @@ class Ticket(models.Model):
         if EMAIL_NOTIFIY:
             if self.assigned_to:
                 notify_staff( self )
+
+
+class Note(models.Model):
+    '''A Comment is some text about a given Document'''
+    ticket = models.ForeignKey(Ticket, 
+        related_name='comments', 
+        verbose_name=_("ticket")
+    )
+    text = models.TextField(_("nora"), help_text = "se pude dar el formato al text usando textile ")
+    created_at = models.DateTimeField(_("fecha creación"), auto_now_add=True)
+    created_by = models.ForeignKey(ASIGNED_USER_CLS, 
+        related_name='creado', 
+        verbose_name=_("creado por")
+    )
+    attachment = models.FileField(
+        _("fichero adjunto"), 
+        upload_to=FILE_UPLOAD_DIR,
+        blank=True, null=True,
+        help_text=_("pude ser patch etc."),
+    )
+    
+    def __unicode__(self):
+        return self.text
+                    

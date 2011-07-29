@@ -18,7 +18,8 @@ LIMIT_ASIGNED_USERS = getattr(settings, "TRACKER_LIMIT_ASIGNED_STAFF", {'is_staf
 SUBMITTER_USER_CLS = getattr(settings, "TRACKER_SUBMITTER_USER", User )
 LIMIT_SUBMITTER_USERS = getattr(settings, "TRACKER_LIMIT_SUBMITTER_USERS", {}  )
 
-IMAGE_UPLOAD_DIR = getattr(settings, "TRACKER_IMAGE_UPLOAD_DIR", "uploads/tracker" )
+IMAGE_UPLOAD_DIR = getattr(settings, "TRACKER_IMAGE_UPLOAD_DIR", "uploads/tracker/images" )
+FILE_UPLOAD_DIR = getattr(settings, "TRACKER_FILE_UPLOAD_DIR", "uploads/tracker/files" )
 
 NOTIFY_MANAGERS = getattr(settings, "TRACKER_NOTIFY_MANAGERS", []  )
 NOTIFY_FROM_EMAIL = getattr(settings, "TRACKER_NOTIFY_FROM_EMAIL", settings.DEFAULT_FROM_EMAIL )

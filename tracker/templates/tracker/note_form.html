@@ -1,0 +1,30 @@
+
+<table> 
+	<thead>
+		<tr>
+      		<th class="required">Mensage</th>
+			<th class="required">Fichero Adjunto</th> 
+		</tr>
+	</thead> 
+	<tbody>
+		<tr>
+			<td class="text">
+				{% csrf_token %}
+				{{ note_form.text }}
+				{{ note_form.text.errors }}
+				{{ note_form.ticket }}
+			</td>
+			<td class="file">
+				{{ note_form.attachment }}
+				{{ note_form.attachment.errors }}
+			</td>
+		</tr>
+  </tbody> 
+</table>
+
+
+<div class="submit-row">
+	<input type="submit" value="Enviar" class="default" name="send">
+</div>
+
+</form>
