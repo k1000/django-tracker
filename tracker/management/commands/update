@@ -4,6 +4,11 @@
 #link this file to your git hook update file 
 # and chmod +x update
 
+# --- paths
+project_path="FULL_PATH_TO_YOUR_PROJECT"
+python_path="$project_path/PATH_TO_YOUR_PYTHON_ENV/python"
+comm="$project_path/PATH_TO_YOUR_MANAGE_SCRIPT/manage.py close-ticket"
+
 # --- Command line
 refname="$1"
 oldrev="$2"
@@ -16,10 +21,5 @@ if [ -z "$GIT_DIR" ]; then
         echo "  $0 <ref> <oldrev> <newrev>)" >&2
         exit 1
 fi
-
-project_path="/Users/kamil/Desktop/PROJECTOS/viajestigaiga"
-
-python_path=$project_path/env/bin/python
-comm="$project_path/vijestigaiga/manage.py close-ticket"
 
 $python_path $comm $refname $oldrev $newrev
