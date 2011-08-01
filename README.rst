@@ -10,11 +10,12 @@ Features:
     * integration with django.users
     * email notification when bug/feature changes
     * convinient configuration via settings
-    * comments/notes from users 
+    * comments/notes from users
 
 Optional Features (activated via settings):
     * coupling to project apps
     * multisite support
+    * closing tickets from GIT commit message
 
 Known to work in Django 1.3
 
@@ -56,6 +57,7 @@ TODO
 
     * [*] email notification templates
     * [*] optional comments
+    * [ ] comment notifications
     * [ ] maybe notifying fired by signals instead save method overload ?
     * [ ] RSS feed for open tickets
     * [*] closing tickets from GIT commit message (using update hook)
