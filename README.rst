@@ -39,15 +39,26 @@ Configuration
 
 See SETTINGS_ for more info.
 
+GIT integration
+---------------
+
+You can close tickets directly from GIT appending ticket ref in commit message as "#ticket_ref"
+In order to activate integration:
+
+    1. cd to ".git/hooks" directory
+    2. backup old update script: "mv update update-bck"
+    3. link to tracker management shell script: "ln -s ../../../env/src/tracker/tracker/management/commands/update"
+    4. put correct "project_path" and "python_path" in update script
+    5. "chmod +x update"
 
 TODO
 ----
 
     * [*] email notification templates
     * [*] optional comments
-    * [ ] maybe notifing fired by signals instead save method overload ?
+    * [ ] maybe notifying fired by signals instead save method overload ?
     * [ ] RSS feed for open tickets
-    * [ ] closing tickets from GIT commit message (using post commit hook)
+    * [*] closing tickets from GIT commit message (using update hook)
     * [ ] optional management flow
 
 
