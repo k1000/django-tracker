@@ -1,0 +1,11 @@
+#/bin/sh
+
+#link this file to your git hook update file 
+# and chmod +x update
+  
+project_path="/Users/kamil/Desktop/PROJECTOS/viajestigaiga"
+
+python_path="$project_path/env/bin/python"
+comm="$project_path/vijestigaiga/manage.py close-ticket"
+
+$python_path $comm $rev $1 $2 $3
