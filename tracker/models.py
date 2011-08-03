@@ -1,30 +1,101 @@
 # -*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from django.contrib.auth.models import User, Group
 
 from notify import notify_staff
 
 from tracker.settings import *
 
+class Project(models.Model):
+    """(Project description)"""
+    
+    name = models.CharField(_('name'), null=True, blank=True, max_length=200)
+    slug = models.SlugField(_('identificador'),)
+    description = models.TextField(_(u'descripción'), blank=True, null=True, )
+    url = models.URLField(blank=True, null=True)
+    created_at = models.DateTimeField(_("creado"), auto_now_add=True)
+    is_active = models.BooleanField(_("¿es activo?"), default=True)
+    project_manager = models.ForeignKey(User, 
+            verbose_name=_("encargado del proyecto"),
+    )
+    subbmitters = models.ForeignKey(Group, 
+            verbose_name=_("creadores de tickets"),
+            blank=True, null=True,
+            help_text = _(u"deje en blanco si todos los miembros del personal pueden crear tickets")
+    )
+
+    class Meta:
+        verbose_name = _('Proyecto')
+        verbose_name_plural = _('Proyectos')
+
+    def __unicode__(self):
+        return self.name
+
+class Component(models.Model):
+    """(Component description)"""
+    project = models.ForeignKey(Project, 
+        verbose_name=_("Proyecto"),
+        related_name = "related_componets",
+    )
+    name = models.CharField(_('name'), max_length=250)
+    description = models.TextField(_(u'descripción'), blank=True, null=True, )
+    responsable = models.ForeignKey(User, 
+            verbose_name=_("responsable"),
+            related_name = "related_resonsables",
+            null=True, blank=True,
+    )
+    workteam = models.ForeignKey(Group, 
+            verbose_name=_("grupo de trabajo"),
+            blank=True, null=True, 
+    )
+    
+    class Meta:
+        verbose_name = _('Componente')
+        verbose_name_plural = _('Componentes')
+
+    def __unicode__(self):
+        return self.name
+
+class Milestone(models.Model):
+    """(Milestone description)"""
+    
+    project = models.ForeignKey(Project, verbose_name=_("Proyecto"), )
+    title = models.CharField(_('titulo'), max_length=200)
+    description = models.TextField(_(u'descripción'), blank=True, null=True)
+    version = models.CharField(_(u'versión'), max_length=100)
+    deadline = models.DateField(_('por alcanzar'), blank=True, null=True, )
+    reached_at = models.DateField(_('alcanzado'), blank=True, null=True, )
+
+    class Meta:
+        verbose_name = _('Hito')
+        verbose_name_plural = _('Hitos')
+
+    def __unicode__(self):
+        return self.title
+
 class Ticket(models.Model):
     """Trouble tickets"""
+    
+    project = models.ForeignKey(Project, 
+        verbose_name=_("Proyecto"), 
+        related_name="related_projects", 
+    )
     title = models.CharField(_("titulo"), max_length=250)
     url = models.URLField(_("URL"), blank=True, null=True, verify_exists=False)
     submitted_date = models.DateTimeField(_("creado"), auto_now_add=True)
     modified_date = models.DateTimeField(_("modificado"), auto_now=True)
-    
     submitter = models.ForeignKey(SUBMITTER_USER_CLS, 
             related_name="submitter", 
             verbose_name=_("creado por"),
             limit_choices_to = LIMIT_SUBMITTER_USERS,
     )
-    notify_submitter = models.BooleanField(_("notificar el creador"), default=True)
-    
     assigned_to = models.ForeignKey(ASIGNED_USER_CLS, 
             verbose_name=_("asignado"), 
+            related_name = "related_asigned",
+            null=True, blank=True,
             limit_choices_to = LIMIT_ASIGNED_USERS,
     )
-    
     description = models.TextField(_(u"descripción"), blank=True, null=True)
     status = models.PositiveIntegerField(_("status"), 
             default=1, 
@@ -32,7 +103,6 @@ class Ticket(models.Model):
     priority = models.PositiveIntegerField(_("prioridad"), 
             default=DEFAULT_PRIORITY, 
             choices=PRIORITY_CODES)
-    #browser_profile = models.TextField(_("perfil del navegador"), blank=True, null=True )
     kind = models.PositiveIntegerField(_("tipo"), 
             default=1, 
             choices=KIND_CODES)
@@ -40,26 +110,48 @@ class Ticket(models.Model):
     image = models.ImageField(_("imagen"), 
             blank=True, null=True, 
             upload_to=IMAGE_UPLOAD_DIR, )
+    milestone = models.ForeignKey(Milestone, 
+            verbose_name=_("hito"),
+            blank=True, null=True,
+    )
+    estimated_time = models.DecimalField(
+        _(u"estimado tiempo de ejecución"), 
+        max_digits=4, decimal_places=2,
+        null=True, blank=True,
+        help_text =_("en horas")
+    )
     
-    
-    if PROJECT_INTEGRATION:
-        project = models.PositiveIntegerField(_(u"módulo afectado"), 
-                    blank=True, null=True, 
-                    max_length=100, 
-                    choices=PROJECTS)
-        
-    if MULTISITE:
-        from django.contrib.sites.models import Site
-        sites = models.ForeignKey(Site, verbose_name=_("Webs"), related_name="related_sites", )
+    def get_project(self):
+        """docstring for fname"""
+        pass
         
     def __unicode__(self):
-        return "#%s %s" % ( self.id, self.title )
+        return u"#%s: %s" % ( self.id, self.title )
         
     def save(self, *args, **kwargs):
         super(Ticket, self).save(*args, **kwargs)
         if EMAIL_NOTIFIY:
             if self.assigned_to:
                 notify_staff( self )
+
+class StatusChanges(models.Model):
+    """(Log description)"""
+    ticket = models.ForeignKey(Ticket, 
+        related_name='releted_logs', 
+        verbose_name=_("ticket")
+    )
+    message = models.TextField(_("mensaje"), blank=True, null=True)
+    changes = models.TextField(_("cambios"), )
+    changed_at = models.DateTimeField(_("fecha"), auto_now_add=True)
+    changed_by = models.ForeignKey(User, 
+            verbose_name=_("hecho por"),
+    )
+    class Meta:
+        verbose_name = _('Cambio de Estado')
+        verbose_name_plural = _('Cambios de Estado')
+
+    def __unicode__(self):
+        return u"change %s by %s" % (self.changed_at, self.changed_by)
 
 
 class Note(models.Model):
@@ -69,7 +161,7 @@ class Note(models.Model):
         verbose_name=_("ticket")
     )
     text = models.TextField(_("nora"), help_text = "se pude dar el formato al text usando textile ")
-    created_at = models.DateTimeField(_("fecha creación"), auto_now_add=True)
+    created_at = models.DateTimeField( _(u"fecha creación"), auto_now_add=True)
     created_by = models.ForeignKey(ASIGNED_USER_CLS, 
         related_name='creado', 
         verbose_name=_("creado por")

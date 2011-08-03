@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 EMAIL_NOTIFIY = getattr(settings, "TRACKER_EMAIL_NOTIFIY", True )
 
 # tracer initialization settings !!!dont'change after instalation
-PROJECT_INTEGRATION = getattr(settings, "TRACKER_PROJECT_INTEGRATION", True )
+COMPONENT_INTEGRATION = getattr(settings, "TRACKER_COMPONENT_INTEGRATION", True )
 EXCLUDE_APPS = getattr(settings, "TRACKER_EXCLUDE_APPS", [] )
 MULTISITE = getattr(settings, "TRACKER_MULTISITE", False )
 ACTIVETE_COMMENTS = getattr(settings, "TRACKER_ACTIVETE_COMMENTS", False )
@@ -63,7 +63,7 @@ PRIORITY_CODES = getattr(settings,
 )
 DEFAULT_PRIORITY = getattr(settings, "TRACKER_DEFAULT_PRIORITY", 2 )
 
-if PROJECT_INTEGRATION:
+if COMPONENT_INTEGRATION:
     EXCLUDE_APPS += [ app for app in settings.INSTALLED_APPS if "django." in app ]
     apps = [ app for app in settings.INSTALLED_APPS if app not in EXCLUDE_APPS ]
-    PROJECTS = list(enumerate(apps))
+    COMPONENTS = list(enumerate(apps))

@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.conf.urls.defaults import patterns
 from django.http import HttpResponseRedirect
 
-from tracker.models import Ticket, Note
+from tracker.models import Ticket, Note, Project, Component, Milestone
 from settings import STATUS_COLOR_CODES
 
 #https://github.com/HonzaKral/custom_admin_form/blob/master/adhack/adapp/admin.py
@@ -83,15 +83,23 @@ class TicketAdmin(admin.ModelAdmin):
             return '<span style="background: %s; color:black; display: block">%s</span>' % (
                 STATUS_COLOR_CODES[ obj.status - 1 ][1], obj.get_status_display() 
             )
+    
+    #https://docs.djangoproject.com/en/dev/ref/contrib/admin/#django.contrib.admin.ModelAdmin.formfield_for_manytomany
+    def formfield_for_choice_field(self, db_field, request, **kwargs):
+            if db_field.name == "milestone":
+                kwargs['choices'] = Milestone.objects.filter(milestone__project__exact = self.original.project )
+            return super(TicketAdmin, self).formfield_for_choice_field(db_field, request, **kwargs)
             
     fieldsets = (
         (None, {
                 'fields': ( "title", 
                             ("status", "kind"),
-                            ("project", "url"),
+                            ("project", "milestone"),
                             "description",
+                            "url",
 							("assigned_to","priority"),
-							("notify_submitter", "commit_id"), 
+							"estimated_time",
+							( "commit_id"), 
 							'image',
                           )
         }),
@@ -102,10 +110,56 @@ class TicketAdmin(admin.ModelAdmin):
     
     ordering = ('-submitted_date',)
     date_hierarchy = 'submitted_date'
-    list_display = ( 'title', "id", 'status_color', "submitted_date", "priority",  'kind',  'project',"submitter", 'assigned_to', )
+    list_display = ( 'title', "id", 'status_color',  "submitted_date", "priority",  'kind',   )
     
     search_fields = ('title', 'id', 'project', 'description', "commit_id" )
 
     list_filter = ( "priority", 'status',  'kind',  'project', 'assigned_to', )
 
-admin.site.register( Ticket, TicketAdmin)
+
+class ComponentInline(admin.StackedInline):
+
+    #def save_new(self, form, commit=True): 
+    model = Component
+    #readonly_fields = ( "created_at", "created_by")
+    extra = 1
+
+class MilestoneInline(admin.StackedInline):
+
+    model = Milestone
+    
+    fieldsets = (
+        (None, {
+                'fields': ( 
+                            ( "version", "title",),
+                            "description",
+							("deadline","reached_at"),
+                          )
+        }),
+    )
+    extra = 1
+    
+class ProjectAdmin(admin.ModelAdmin):
+    
+    inlines = [
+            ComponentInline,
+            MilestoneInline,
+    ]
+    fieldsets = (
+        (None, {
+                'fields': ( 
+                            ("name", "slug"),
+                            "is_active",
+                            "description",
+                            "url",
+							("project_manager","subbmitters"),
+                          )
+        }),
+    )
+
+    prepopulated_fields = {"slug": ("name",)}
+    list_display = ( 'name', "id", 'is_active', "project_manager", "subbmitters", )
+    list_filter = ( "is_active",  )
+                
+admin.site.register( Ticket, TicketAdmin )
+admin.site.register( Project, ProjectAdmin )
