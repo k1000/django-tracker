@@ -1,0 +1,63 @@
+{% load i18n markup %}
+<style type="text/css">
+	dd {
+		text-align: right;
+
+	}
+	dd, dt {
+		float: left;
+		width: 25%;
+	}
+	#ticket dl{
+		padding: 15px;
+		display: block;
+		overflow: hidden;
+		border: 1px solid #dfdfdf;
+	}
+	.status_1 dl{ /* abierto */
+		background: #f9979d;
+	}
+	.status_3 dl{ /* closed */
+		background: #ebfedd;
+	}
+	.status_4 dl{ /* ignorado */
+		background: #f0f0eb;
+	}
+</style>
+
+<div id="ticket" class="status_{{ original.status }}">
+	<h2>
+		{% trans "Incidencia" %}: #{{ original.id }} {{ original.get_kind_display }}  {{ original.get_status_display }}, 
+		{% trans "projecto" %} - "{{ original.project }}"
+	</h2>
+	<h3>{{ original.title }}</h3>
+	<dl>
+		<dd>{% trans "creado por" %}:</dd>
+		<dt>{{ original.submitter }} <a href="mailto:{{ original.submitter.email }}">{{ original.submitter.email }}</a></dt>
+		<dd>{% trans "asignado a" %}:</dd>
+		<dt>{{ original.assigned_to }} <a href="mailto:{{ original.assigned_to.email }}">{{ original.assigned_to.email }}</a> </dt>
+		<dd>{% trans "abierto" %}:</dd>
+		<dt>{{ original.submitted_date }} </dt>
+		<dd>{% trans "tipo" %}:</dd>
+		<dt>{{ original.get_kind_display }}</dt>
+		<dd>{% trans "última modificación" %}:</dd>
+		<dt>{{ original.modified_date }} </dt>
+		<dd>{% trans "priridad" %}:</dd>
+		<dt class="priority_{{ original.priority }}">{{ original.get_priority_display }}</dt>
+		<dd>{% trans "estado" %}:</dd>
+		<dt>{{ original.get_status_display }}</dt>
+		<dd>{% trans "proyecto" %}:</dd>
+		<dt>{{ original.project }}</dt>
+		<dd>{% trans "componente" %}:</dd>
+		<dt>{{ original.component }}</dt>
+		<dd>{% trans "hito" %}:</dd>
+		<dt>{{ original.milestone }}</dt>
+		<dd>{% trans "tiempo estimado de ejecución" %}:</dd>
+		<dt>{{ original.estimated_time }}</dt>
+		<dd>url:</dd>
+		<dt>{{ original.url }}</dt>
+	</dl>
+	<div id="description">
+		{{ original.description|textile }}
+	</div>
+</div>

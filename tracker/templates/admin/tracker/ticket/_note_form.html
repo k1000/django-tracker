@@ -1,0 +1,23 @@
+{% load i18n markup %}
+  <table> 
+		<thead>
+			<tr>
+	      		<th class="required">{% trans "Mensage" %}</th>
+				<th class="required">{% trans "Fichero Adjunto" %}</th> 
+			</tr>
+		</thead> 
+		<tbody>
+			<tr>
+				<td class="text">
+					{% csrf_token %}
+					{{ note_form.text }}
+					{{ note_form.text.errors }}
+					{{ note_form.ticket }}
+				</td>
+				<td class="file">
+					{{ note_form.attachment }}
+					{{ note_form.attachment.errors }}
+				</td>
+			</tr>
+	  </tbody> 
+	</table>

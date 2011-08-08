@@ -1,0 +1,25 @@
+{% load i18n markup %}
+  <table>
+	<thead>
+		<tr>
+      		<th class="required">{% trans "User" %}</th>
+			<th class="required">{% trans "Nota" %}</th> 
+		</tr>
+	</thead>
+	<tbody>
+	  {% for note in original.comments.all %}
+		<tr>
+			<td class="text">
+				<h4>{{ note.created_by }}</h4>
+				<em>{{ note.created_at }}</em>
+			</td>
+			<td class="text">
+				{{ note.text|textile }}
+				{% if note.attachment %}
+					<a href="{{ MEDIA_URL }}{{ note.attachment }}" target ="_new">{{ note.attachment }}</a>
+				{% endif %}
+			</td>
+		</tr>
+	  {% endfor %}
+	</tbody> 
+  </table>

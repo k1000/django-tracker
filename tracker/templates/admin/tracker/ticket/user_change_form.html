@@ -1,0 +1,62 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_modify adminmedia %}
+{% load url from future %}
+{% load  markup %}
+
+
+{% block content %}
+
+{% if original.id %}
+{% include "admin/tracker/ticket/_ticket.html" %}
+{% endif %}
+
+
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}
+	<fieldset class="module">
+		<h2>{% trans "Cambiar Estado" %}</h2>
+		<table>
+			<tbody>
+				<tr>
+					{{ adminform.form }}
+					{{ log_form }}
+				</tr>
+			</tbody>
+		</table>
+	</fieldset>
+	
+	<div class="submit-row">
+		<input type="submit" value="{% trans 'Cambiar' %}" class="default" name="_save" />
+	</div>
+</form>
+
+{% if original.id %}
+	<fieldset class="module">
+	{% include "admin/tracker/ticket/_historial.html" %}
+	</fieldset>
+{% endif %}
+
+{% endblock %}
+
+
+
+{% block footer %}
+
+{% if original.id %}
+<div id="notes" class="colM" style="margin: 15px">
+	<form action="note/" enctype="multipart/form-data" method="post">
+		<fieldset class="module">
+			<h2>Notas</h2>
+
+			{% include "admin/tracker/ticket/_notes.html" %}
+
+			{% include "admin/tracker/ticket/_note_form.html" %}
+
+			<div class="submit-row">
+				<input type="submit" value="Enviar" class="default" name="send">
+			</div>
+		</fieldset>
+	</form>
+</div>
+{% endif %}
+
+{% endblock %}

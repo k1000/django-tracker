@@ -1,0 +1,17 @@
+{% load i18n markup %}
+  <h2>{% trans "historial" %}</h2>
+  <table>
+		<tbody>
+			{% for log in history %}
+			<tr class="action_{{action_flag}}">
+				<td class="text">
+					<h4>{{ log.user }}</h4>
+					<em>{{ log.action_time }}</em>
+				</td>
+				<td class="text">
+					{{ log.change_message|textile }}
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
