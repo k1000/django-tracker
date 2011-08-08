@@ -6,11 +6,11 @@ django-tracker
 
 Features:
     * bug/feature submission and tracking
-    * task assignment
-    * integration with django.users
+    * projetcs and task assignment 
+    * asigining django users and groups
     * email notification when bug/feature changes
     * convinient configuration via settings
-    * comments/notes from users
+    * comments/notes on tickets
 
 Optional Features (activated via settings):
     * coupling to project apps
