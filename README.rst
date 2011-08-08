@@ -57,8 +57,8 @@ TODO
 
     * [*] email notification templates
     * [*] optional comments
-    * [ ] comment notifications
-    * [ ] maybe notifying fired by signals instead save method overload ?
+    * [*] comment notifications
+    * [*] maybe notifying fired by signals instead save method overload ?
     * [ ] RSS feed for open tickets
     * [*] closing tickets from GIT commit message (using update hook)
     * [ ] optional management flow
