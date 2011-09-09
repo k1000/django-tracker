@@ -9,11 +9,22 @@
 <form action="note/" enctype="multipart/form-data" method="post">
 
 {% if original.id %}
+	<fieldset class="module">
+	{% include "admin/tracker/ticket/_historial.html" %}
+	</fieldset>
+
 	<div id="notes" class="colM" style="margin: 15px">
 		<fieldset class="module">
-		<h2>{% trans "Notas" %}</h2>
-		{% include "admin/tracker/ticket/_notes.html" %}
+			<h2>{% trans "Notas" %}</h2>
+			{% include "admin/tracker/ticket/_notes.html" %}
 		</fieldset>
+
+		{% include "admin/tracker/ticket/_note_form.html" %}
+
+		<div class="submit-row">
+			<input type="submit" value="Enviar" class="default" name="send">
+		</div>
+
 	</div>
 {% endif %}
 

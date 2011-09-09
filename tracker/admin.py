@@ -8,7 +8,7 @@ from django.utils.encoding import force_unicode
 from django import forms
 from django.db import models
 
-from tracker.forms import CreateNoteForm, LogForm, StatusTicketForm
+from tracker.forms import CreateNoteForm, StatusTicketForm
 from tracker.models import Ticket, Note, Project, Component, Milestone
 from settings import STATUS_COLOR_CODES
 
@@ -49,6 +49,7 @@ class TicketAdmin(admin.ModelAdmin):
                 (None, {
                         'fields': ( "title", 
                                     ("status", "kind"),
+                                    "modifiaction_message",
                                     ("project", "milestone"),
                                     ("component","url",),
                                     "description",
@@ -60,8 +61,11 @@ class TicketAdmin(admin.ModelAdmin):
                 }),
             )
         else:
-            self.fields = ('status',)
-
+            self.fields = ('status', "modifiaction_message")
+        
+        # reset modification message
+        if obj:
+            obj.modifiaction_message = u''
         form = super(TicketAdmin, self ).get_form( request, obj, **kwargs)
         return form
 
@@ -81,8 +85,8 @@ class TicketAdmin(admin.ModelAdmin):
         if is_user_manager(obj, request.user): #or request.user is component_responsable:
             self.change_form_template = "admin/tracker/ticket/change_form.html"
         else:
-            self.change_form_template = "admin/tracker/ticket/user_change_form.html"
-            #self.change_form_template = "admin/tracker/ticket/change_form.html"
+            #self.change_form_template = "admin/tracker/ticket/user_change_form.html"
+            self.change_form_template = "admin/tracker/ticket/change_form.html"
         note_kwargs = dict(
             prefix = "note",
             initial = { "ticket":obj.id },
@@ -99,10 +103,9 @@ class TicketAdmin(admin.ModelAdmin):
 
 
     def save_model(self, request, obj, form, change):
-        if obj.id:
-            obj.modified_by = request.user
-        else:
+        if not obj.id:
             obj.submitter = request.user
+        obj.modified_by = request.user
         obj.save()
     
     def get_urls(self):
@@ -128,22 +131,21 @@ class TicketAdmin(admin.ModelAdmin):
             )
     
     def log_change(self, request, object, message):
-        # "log_change" signal do the job
+        # "log_change" now signal do the job
         pass
     
     #https://docs.djangoproject.com/en/dev/ref/contrib/admin/#django.contrib.admin.ModelAdmin.formfield_for_manytomany
     def formfield_for_choice_field(self, db_field, request, **kwargs):
-            if db_field.name == "status": #TODO!!!! adjust available satatus according to current status
-                if request.user.is_superuser:
-                    pass #models.TextField: {'widget': forms.HiddenInput },
-                else:
-                    pass
-            if db_field.name == "milestone":
-                kwargs['choices'] = Milestone.objects.filter(milestone__project__exact = self.original.project )
-            if db_field.name == "component":
-                kwargs['choices'] = self.original.project.component_set.all()
-            return super(TicketAdmin, self).formfield_for_choice_field(db_field, request, **kwargs)
-            
+        if db_field.name == "status": #TODO!!!! adjust available satatus according to current status
+            if request.user.is_superuser:
+                pass #models.TextField: {'widget': forms.HiddenInput },
+            else:
+                pass
+        if db_field.name == "milestone":
+            kwargs['choices'] = Milestone.objects.filter(milestone__project__exact = self.original.project )
+        if db_field.name == "component":
+            kwargs['choices'] = self.original.project.component_set.all()
+        return super(TicketAdmin, self).formfield_for_choice_field(db_field, request, **kwargs)
     
     
     status_color.short_description = 'status'

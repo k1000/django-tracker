@@ -19,7 +19,7 @@ class StatusTicketForm(forms.ModelForm):
             
     class Meta():
         model = Ticket
-        fields = ("status",)
+        fields = ("status", "modifiaction_message", )
         
     def save(self, commit=True):
             obj = self._instance or Ticket()
@@ -31,7 +31,4 @@ class StatusTicketForm(forms.ModelForm):
             self._instance = obj
             return obj
 
-
-class LogForm(forms.Form):
-    message = forms.CharField(widget=forms.Textarea)
     
