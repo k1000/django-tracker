@@ -1,0 +1,1 @@
+-e git://github.com/alisue/django-modify-history.git#egg=modify-history
