@@ -1,0 +1,129 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: django tracker\n"
+"Language: en\n"
+
+#: models.py:11
+msgid "titulo"
+msgstr "title"
+
+#: models.py:12
+msgid "URL"
+msgstr "URL"
+
+#: models.py:13
+msgid "creado"
+msgstr "created"
+
+#: models.py:14
+msgid "modificado"
+msgstr "modified"
+
+#: models.py:18 models.py:75
+msgid "creado por"
+msgstr "created by"
+
+#: models.py:21
+msgid "notificar el creador"
+msgstr "notify the creator"
+
+#: models.py:24
+msgid "asignado"
+msgstr "asigned"
+
+#: models.py:28
+msgid "descripción"
+msgstr "description"
+
+#: models.py:29
+msgid "status"
+msgstr "status"
+
+#: models.py:32
+msgid "prioridad"
+msgstr "priority"
+
+#: models.py:36
+msgid "tipo"
+msgstr "type"
+
+#: models.py:39
+msgid "revisión nº"
+msgstr "No review"
+
+#: models.py:40
+msgid "imagen"
+msgstr "image"
+
+#: models.py:46
+msgid "módulo afectado"
+msgstr "affected module"
+
+#: models.py:53
+msgid "Webs"
+msgstr "Webs"
+
+#: models.py:69
+msgid "ticket"
+msgstr "ticket"
+
+#: models.py:71
+msgid "nora"
+msgstr "nora"
+
+#: models.py:72
+msgid "fecha creación"
+msgstr "creation date"
+
+#: models.py:78
+msgid "fichero adjunto"
+msgstr "attachment"
+
+#: models.py:81
+msgid "pude ser patch etc."
+msgstr "etc. could be patch."
+
+#: settings.py:30
+msgid "Abierto"
+msgstr "Open"
+
+#: settings.py:31
+msgid "En proceso"
+msgstr "In process"
+
+#: settings.py:32
+msgid "Cerrado"
+msgstr "Closed"
+
+#: settings.py:33
+msgid "Ignorado"
+msgstr "Unknown"
+
+#: settings.py:50
+msgid "Error"
+msgstr "Error"
+
+#: settings.py:51
+msgid "Corrección lingüística"
+msgstr "Proofreading"
+
+#: settings.py:52
+msgid "Mejora"
+msgstr "Improvement"
+
+#: settings.py:59
+msgid "Urgente"
+msgstr "Urgent"
+
+#: settings.py:60
+msgid "Pronto"
+msgstr "Soon"
+
+#: settings.py:61
+msgid "Algun día"
+msgstr "Someday"
+
