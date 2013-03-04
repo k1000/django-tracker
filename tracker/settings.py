@@ -31,6 +31,7 @@ STATUS_CODES = getattr(settings,
         (2, _('En proceso')),
         (3, _('Cerrado')),
         (4, _('Ignorado')),
+        (5, _('Cerrado - no se aplica')),
     )
 )
 
@@ -41,6 +42,7 @@ STATUS_COLOR_CODES = getattr(settings,
         (2, 'yellow'),
         (3, '#7fff00'),  # lighht green
         (4, '#eaeaea'),  # lighht gray
+        (5, '#7fff00'),  # lighht gray
     )
 )
 
