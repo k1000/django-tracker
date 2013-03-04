@@ -1,4 +1,4 @@
-{% extends "admin/change_form.html" %}
+{% extends "admin/change_form.html" %}{% load i18n %}
 {% load i18n admin_modify adminmedia %}
 {% load url from future %}
 {% load note_tags markup %}
@@ -10,13 +10,13 @@
 <form action="note/" enctype="multipart/form-data" method="post">
 
 <fieldset class="module">
-  <h2>Notas</h2>
+  <h2>{% trans "Notas" %}</h2>
 
   <table>
 	<thead>
 		<tr>
-      		<th class="required">Usuario</th>
-			<th class="required">Nota</th> 
+      		<th class="required">{% trans "Usuario" %}</th>
+			<th class="required">{% trans "Nota" %}</th> 
 		</tr>
 	</thead>
 	<tbody>
