@@ -3,6 +3,7 @@ import commands
 import logging
 import re
 from django.core.management.base import BaseCommand, CommandError
+from django.utils.translation import ugettext_lazy as _
 
 from tracker.models import Ticket
 
@@ -12,8 +13,11 @@ logger = logging.getLogger("django")
 
 
 class Command(BaseCommand):
+    """
+    search for ticker rferences in git and close it
+    """
     args = '<rev oldrev newrev>'
-    help = '''busca ticket refs en git commits y lo cierra'''
+    help = _('''search for ticker rferences in git and close it''')
 
     def handle(self, *args, **options):
         ref = args[0]
@@ -37,10 +41,10 @@ class Command(BaseCommand):
             try:
                 ticket = Ticket.objects.get(pk=int(ticket_id))
             except Ticket.DoesNotExist:
-                raise CommandError("Can't close ticket. Ticket #%s doesn't exist" % ticket_id)
+                raise CommandError(_("Can't close ticket. Ticket #%s doesn't exist") % ticket_id)
 
             ticket.status = 3
             ticket.commit_id = rev
             ticket.save()
 
-            self.stdout.write("ticket #%s has been closed" % ticket_id)
+            self.stdout.write(_("ticket #%s has been closed") % ticket_id)

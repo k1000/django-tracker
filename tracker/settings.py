@@ -27,11 +27,11 @@ NOTIFY_FROM_EMAIL = getattr(settings, "TRACKER_NOTIFY_FROM_EMAIL", settings.DEFA
 STATUS_CODES = getattr(settings,
     "TRACKER_STATUS_CODES",
     (
-        (1, _('Abierto')),
-        (2, _('En proceso')),
-        (3, _('Cerrado')),
-        (4, _('Ignorado')),
-        (5, _('Cerrado - no se aplica')),
+        (1, _('Open')),
+        (2, _('In work')),
+        (3, _('Closed')),
+        (4, _('Ignored')),
+        (5, _('Closed - defunkt')),
     )
 )
 
@@ -50,17 +50,17 @@ KIND_CODES = getattr(settings,
     "TRACKER_KIND_CODES",
     (
         (1, _('Error')),
-        (2, _(u'Corrección lingüística')),
-        (3, _('Mejora')),
+        (2, _(u'typo')),
+        (3, _('improovement')),
     )
 )
 
 PRIORITY_CODES = getattr(settings,
     "TRACKER_PRIORITY_CODES",
     (
-        (1, _('Urgente')),
-        (2, _('Pronto')),
-        (3, _(u'Algun día')),
+        (1, _('Urgent!')),
+        (2, _('Soon')),
+        (3, _(u'Some day')),
     )
 )
 DEFAULT_PRIORITY = getattr(settings, "TRACKER_DEFAULT_PRIORITY", 2)

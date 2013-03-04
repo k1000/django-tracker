@@ -9,32 +9,32 @@ from tracker.settings import *
 
 class Ticket(models.Model):
     """Trouble tickets"""
-    title = models.CharField(_("titulo"), max_length=250)
+    title = models.CharField(_("title"), max_length=250)
     url = models.URLField(_("URL"), blank=True, null=True, verify_exists=False)
-    submitted_date = models.DateTimeField(_("creado"), auto_now_add=True)
-    modified_date = models.DateTimeField(_("modificado"), auto_now=True)
+    submitted_date = models.DateTimeField(_("created"), auto_now_add=True)
+    modified_date = models.DateTimeField(_("modified"), auto_now=True)
 
     submitter = models.ForeignKey(SUBMITTER_USER_CLS,
             related_name="submitter",
             verbose_name=_("creado por"),
             limit_choices_to=LIMIT_SUBMITTER_USERS,
     )
-    notify_submitter = models.BooleanField(_("notificar el creador"), default=True)
+    notify_submitter = models.BooleanField(_("notify creator"), default=True)
 
     assigned_to = models.ForeignKey(ASIGNED_USER_CLS,
             verbose_name=_("asignado"),
             limit_choices_to=LIMIT_ASIGNED_USERS,
     )
 
-    description = models.TextField(_(u"descripción"), blank=True, null=True)
+    description = models.TextField(_(u"description"), blank=True, null=True)
     status = models.PositiveIntegerField(_("status"),
             default=1,
             choices=STATUS_CODES)
-    priority = models.PositiveIntegerField(_("prioridad"),
+    priority = models.PositiveIntegerField(_("priority"),
             default=DEFAULT_PRIORITY,
             choices=PRIORITY_CODES)
     #browser_profile = models.TextField(_("perfil del navegador"), blank=True, null=True )
-    kind = models.PositiveIntegerField(_("tipo"),
+    kind = models.PositiveIntegerField(_("type"),
             default=1,
             choices=KIND_CODES)
     commit_id = models.CharField(_(u'revisión nº'), blank=True, null=True, max_length=100)
@@ -43,7 +43,7 @@ class Ticket(models.Model):
             upload_to=IMAGE_UPLOAD_DIR, )
 
     if PROJECT_INTEGRATION:
-        project = models.PositiveIntegerField(_(u"módulo afectado"),
+        project = models.PositiveIntegerField(_(u"afected module"),
                     blank=True, null=True,
                     max_length=100,
                     choices=PROJECTS)
@@ -68,17 +68,17 @@ class Note(models.Model):
         related_name='comments',
         verbose_name=_("ticket")
     )
-    text = models.TextField(_("nora"), help_text="se pude dar el formato al text usando textile ")
+    text = models.TextField(_("nora"), help_text="text may be formated using 'textile'")
     created_at = models.DateTimeField(_(u"fecha creación"), auto_now_add=True)
     created_by = models.ForeignKey(ASIGNED_USER_CLS,
-        related_name='creado',
-        verbose_name=_("creado por")
+        related_name='created',
+        verbose_name=_("created by")
     )
     attachment = models.FileField(
         _("fichero adjunto"),
         upload_to=FILE_UPLOAD_DIR,
         blank=True, null=True,
-        help_text=_("pude ser patch etc."),
+        help_text=_("patch etc."),
     )
 
     def __unicode__(self):
