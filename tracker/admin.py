@@ -38,8 +38,10 @@ class NoteInlineForm(forms.Form):
         return obj
 """
 #http://www.ibm.com/developerworks/opensource/library/os-django-admin/index.html
+
+
 class NoteInline(admin.TabularInline):
-    
+
     #def save_new(self, form, commit=True): 
     def save_model(self, request, obj, form, change):
         obj = form.save(commit=False)
@@ -52,60 +54,61 @@ class NoteInline(admin.TabularInline):
         if commit and hasattr(form, 'save_m2m'):
             form.save_m2m()
         obj.save()
-        
+
     model = Note
-    readonly_fields = ( "created_at", "created_by")
+    readonly_fields = ("created_at", "created_by")
     extra = 1
-    
+
+
 class TicketAdmin(admin.ModelAdmin):
-    def save_model(self, request, obj, form, change): 
+    def save_model(self, request, obj, form, change):
         obj.submitter = request.user
         obj.save()
-    
+
     def get_urls(self):
             urls = super(TicketAdmin, self).get_urls()
             my_urls = patterns('',
                 (r'^(\d*)/note/$', self.admin_site.admin_view(self.note_form),)
             )
             return my_urls + urls
-            
+
     def note_form(self, request, ticket_id):
         from tracker.forms import CreateNoteForm
-        
-        form = CreateNoteForm( request.POST, request.FILES )
+
+        form = CreateNoteForm(request.POST, request.FILES)
         if form.is_valid():
             note = form.save(commit=False)
             note.created_by = request.user
             note.save()
         return HttpResponseRedirect("../")
-        
+
     def status_color(self, obj):
             return '<span style="background: %s; color:black; display: block">%s</span>' % (
-                STATUS_COLOR_CODES[ obj.status - 1 ][1], obj.get_status_display() 
+                STATUS_COLOR_CODES[obj.status - 1][1], obj.get_status_display()
             )
-            
+
     fieldsets = (
         (None, {
-                'fields': ( "title", 
+                'fields': ("title",
                             ("status", "kind"),
                             ("project", "url"),
                             "description",
-							("assigned_to","priority"),
-							("notify_submitter", "commit_id"), 
-							'image',
+                            ("assigned_to", "priority"),
+                            ("notify_submitter", "commit_id"),
+                            'image',
                           )
         }),
     )
-    
+
     status_color.short_description = 'status'
     status_color.allow_tags = True
-    
+
     ordering = ('-submitted_date',)
     date_hierarchy = 'submitted_date'
-    list_display = ( 'title', "id", 'status_color', "submitted_date", "priority",  'kind',  'project',"submitter", 'assigned_to', )
-    
-    search_fields = ('title', 'id', 'project', 'description', "commit_id" )
+    list_display = ('title', "id", 'status_color', "submitted_date", "priority",  'kind', 'project', "submitter", 'assigned_to', )
 
-    list_filter = ( "priority", 'status',  'kind',  'project', 'assigned_to', )
+    search_fields = ('title', 'id', 'project', 'description', "commit_id")
 
-admin.site.register( Ticket, TicketAdmin)
+    list_filter = ("priority", 'status',  'kind',  'project', 'assigned_to')
+
+admin.site.register(Ticket, TicketAdmin)
