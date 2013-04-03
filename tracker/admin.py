@@ -95,7 +95,7 @@ class TicketAdmin(admin.ModelAdmin):
                             "description",
                             ("assigned_to", "priority"),
                             ("notify_submitter", "commit_id"),
-                            'image',
+                            'attachment',
                           )
         }),
     )

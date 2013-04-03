@@ -16,13 +16,13 @@ class Ticket(models.Model):
 
     submitter = models.ForeignKey(SUBMITTER_USER_CLS,
             related_name="submitter",
-            verbose_name=_("creado por"),
+            verbose_name=_("created by"),
             limit_choices_to=LIMIT_SUBMITTER_USERS,
     )
     notify_submitter = models.BooleanField(_("notify creator"), default=True)
 
     assigned_to = models.ForeignKey(ASIGNED_USER_CLS,
-            verbose_name=_("asignado"),
+            verbose_name=_("assigned to"),
             limit_choices_to=LIMIT_ASIGNED_USERS,
     )
 
@@ -37,8 +37,8 @@ class Ticket(models.Model):
     kind = models.PositiveIntegerField(_("type"),
             default=1,
             choices=KIND_CODES)
-    commit_id = models.CharField(_(u'revisión nº'), blank=True, null=True, max_length=100)
-    image = models.ImageField(_("imagen"),
+    commit_id = models.CharField(_(u'revision nº'), blank=True, null=True, max_length=100)
+    attachment = models.FileField(_("attachement"),
             blank=True, null=True,
             upload_to=IMAGE_UPLOAD_DIR, )
 
@@ -68,14 +68,14 @@ class Note(models.Model):
         related_name='comments',
         verbose_name=_("ticket")
     )
-    text = models.TextField(_("nora"), help_text="text may be formated using 'textile'")
-    created_at = models.DateTimeField(_(u"fecha creación"), auto_now_add=True)
+    text = models.TextField(_("note"), help_text="text may be formated using 'textile'")
+    created_at = models.DateTimeField(_(u"creation date"), auto_now_add=True)
     created_by = models.ForeignKey(ASIGNED_USER_CLS,
         related_name='created',
         verbose_name=_("created by")
     )
     attachment = models.FileField(
-        _("fichero adjunto"),
+        _("attachement"),
         upload_to=FILE_UPLOAD_DIR,
         blank=True, null=True,
         help_text=_("patch etc."),
