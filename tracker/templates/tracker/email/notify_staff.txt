@@ -1,15 +1,15 @@
-ticket nº {{ object.id }} creado en {{ object.submitted_date }}
+ticket nº {{ object.id }} created at {{ object.submitted_date }}
 
-"{{ object.title }}" en {{ site }} 
+"{{ object.title }}" in {{ site }} 
 {{ site }}{{ admin_url }}
 ========================
 
-estado: 	{{ object.get_status_display }}	
-prioridad: 	{{ object.get_priority_display }}
+status: 	{{ object.get_status_display }}	
+priority: 	{{ object.get_priority_display }}
 
 {% if object.url %} url: {{ object.url }} {% endif %}
-{% if object.project %} modulo afectado {{ object.get_project_display }} {% endif %}
+{% if object.project %} affected module {{ object.get_project_display }} {% endif %}
 -------------------------
 {{ object.description }}
 -------------------------
-este mensaje ha sido generado automáticamente
+this massage has been created automatically
