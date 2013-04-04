@@ -51,7 +51,7 @@ KIND_CODES = getattr(settings,
     (
         (1, _('Error')),
         (2, _(u'typo')),
-        (3, _('improovement')),
+        (3, _('improvement')),
     )
 )
 
@@ -60,7 +60,7 @@ PRIORITY_CODES = getattr(settings,
     (
         (1, _('Urgent!')),
         (2, _('Soon')),
-        (3, _(u'Some day')),
+        (3, _('Some day')),
     )
 )
 DEFAULT_PRIORITY = getattr(settings, "TRACKER_DEFAULT_PRIORITY", 2)

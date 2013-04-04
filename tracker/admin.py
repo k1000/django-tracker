@@ -62,7 +62,9 @@ class NoteInline(admin.TabularInline):
 
 class TicketAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
-        obj.submitter = request.user
+        # set submiter only on creation
+        if not obj.id:
+            obj.submitter = request.user
         obj.save()
 
     def get_urls(self):
